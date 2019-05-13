@@ -1,13 +1,10 @@
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-    public static List<Integer> players = new LinkedList<Integer>();
-    public static List<Integer> machine = new LinkedList<Integer>();
-    public static Random random = new Random();
-    public static Scanner scanner = new Scanner(System.in);
+    private static List<Integer> players = new LinkedList<>();
+    private static List<Integer> machine = new LinkedList<>();
+    private static Random random = new Random();
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         int winnings= random.nextInt(15000000)+2000000;
@@ -15,26 +12,53 @@ public class Main {
 
         System.out.println("Wprowadz 6 cyfr w zakresie od 1 do 49");
         int a=0;
-        while (a>5){
+        while (a<6){
             int temp = scanner.nextInt();
-            if (!players.contains(temp)){
+            System.out.println("Wprowadz liczbe i wscisnij ENTER");
+            if (!players.contains(temp) && temp >0 && temp<50){
                 players.add(temp);
+                a++;
             }else {
                 System.out.println("Cyfry nie moga sie powtarzac");
+                System.out.println("Zakres cyfr to od 1 do 49");
             }
         }
-    }
-
-    public static List<Integer> random() {
-        List<Integer> temp = new LinkedList<>();
-        int col = 0;
-        for (int i = 0; col > 5; i++) {
-            int number = random.nextInt(49) + 1;
-            if (!temp.contains(number)) {
-                temp.add(number);
-                col++;
+        int b= 0;
+        while (b<6){
+            int temp = random.nextInt(48)+1;
+            if (!machine.contains(temp)){
+                machine.add(temp);
+                b++;
             }
         }
-        return temp;
+        int wins = 0;
+        for (int i = 0; i <6; i++) {
+            int temp = machine.get(i);
+            if (players.contains(temp)){
+                wins++;
+            }
+        }
+        Collections.sort(machine);
+        Collections.sort(players);
+        System.out.println("Wylosowane liczby to: " + machine);
+        System.out.println("Twoje liczby to: " + players);
+        switch (wins){
+            case 0:
+            case 1:
+            case 2:
+                System.out.println("Brak wygranej");
+                break;
+            case 3:
+                System.out.println("Trafiłeś 3 cyfry Twoja wygrana to: " + winnings/53467 + " zł");
+                break;
+            case 4:
+                System.out.println("Trafileś 4 cyfry Twoja wygrana to: " + winnings/3073 + " zł");
+                break;
+            case 5:
+                System.out.println("Trafileś 5 cyfry Twoja wygrana to: " + winnings/65 + " zł");
+                break;
+            case 6:
+                System.out.println("Trafiłeś 6 głowna wygrana: " + winnings + " zł");
+        }
     }
 }
