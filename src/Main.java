@@ -1,10 +1,11 @@
+import java.security.SecureRandom;
 import java.util.*;
 
 public class Main {
     private static List<Integer> players = new LinkedList<>();
     private static List<Integer> machine = new LinkedList<>();
-    private static Random random = new Random();
     private static Scanner scanner = new Scanner(System.in);
+    private static SecureRandom random = new SecureRandom();
 
     public static void main(String[] args) {
         int winnings = random.nextInt(15000000) + 2000000;
